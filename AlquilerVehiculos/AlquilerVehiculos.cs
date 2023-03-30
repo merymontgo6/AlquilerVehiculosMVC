@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,10 @@ namespace AlquilerVehiculos
                 Console.WriteLine("4. Eliminar vehiculo");
                 Console.WriteLine("5. Alta contrato");
                 Console.WriteLine("6. Listar contratos");
+                Console.WriteLine("7. Grabar clientes en CSV");
+                Console.WriteLine("8. Leer fichero CSV y mostrar por pantalla");
+                Console.WriteLine("9. Cargar fichero CSV");
+                Console.WriteLine("10. Mostrar Clientes");
                 Console.WriteLine("0. Salir");
                 opcion = pedirOpcionMenu();
                 switch (opcion)
@@ -47,6 +52,18 @@ namespace AlquilerVehiculos
                     case "6":
                         listarContratos(vehiculosRent);
                         break;
+                    case "7":
+                        grabarCSV(vehiculosRent);
+                        break;
+                    case "8":
+                        leerCSV(vehiculosRent);
+                        break;
+                    case "9":
+                        cargarCSVenList(vehiculosRent);
+                        break;
+                    case "10":
+                        mostrarClientes(vehiculosRent);
+                        break;
                     case "0":
                         salir = true;
                         break;
@@ -62,7 +79,7 @@ namespace AlquilerVehiculos
             {
                 Console.Write("Opcion: ");
                 opcion = Console.ReadLine();
-            } while (!"0123456".Contains(opcion));
+            } while (!"012345678910".Contains(opcion));
 
             return opcion;
 
@@ -167,7 +184,6 @@ namespace AlquilerVehiculos
                 }
             }
         }
-
         public void listarContratos(VehiculosRent vehiculosRent)
         {
             foreach(Agencia agencia in vehiculosRent.Agencias)
@@ -189,7 +205,6 @@ namespace AlquilerVehiculos
             }
 
         }
-
         public void mostrarVehiculos(VehiculosRent vehiculosRent)
         {
             Console.WriteLine();
@@ -231,6 +246,70 @@ namespace AlquilerVehiculos
                     Console.WriteLine("El vehiculo se ha eliminado de la flota " + flota.NombreZona);
                 }
             }
+        }
+
+        public void grabarCSV(VehiculosRent vehiculosRent)
+        {
+            StreamWriter fitxer = new StreamWriter(@"c:\CSV\clientes.csv");
+            // Escrivim les dades de l'array en format CSV
+            string texto = "";
+
+            foreach (Cliente cliente in vehiculosRent.ListaClientes)
+            {
+                texto = cliente.Nif + "," + cliente.Nombre;
+                fitxer.WriteLine(texto);
+            }
+
+            fitxer.Close();
+
+            Console.WriteLine("Les dades s'han escrit al fitxer.");
+        }
+
+        public void leerCSV(VehiculosRent vehiculosRent)
+        {
+            string fichero = @"C:\csv\clientes.csv";
+            StreamReader archivo = new StreamReader(fichero);
+            string linea;
+            // Si el archivo no tiene encabezado, elimina la siguiente línea
+
+            while ((linea = archivo.ReadLine()) != null)
+            {
+                string[] fila = linea.Split(',');
+
+                for (int i = 0; i < fila.Length; i++)
+                {
+                    Console.Write(fila[i] + "\t");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public void cargarCSVenList(VehiculosRent vehiculosRent)
+        {
+            vehiculosRent.ListaClientes.Clear();
+            Cliente cliente;
+
+            string fichero = @"C:\csv\clientes.csv";
+            StreamReader archivo = new StreamReader(fichero);
+            string linea;
+            linea = archivo.ReadLine();
+            while ((linea = archivo.ReadLine()) != null)
+            {
+                string[] fila = linea.Split(',');
+                cliente = new Cliente();
+                cliente.Nif = fila[0];
+                cliente.Nombre = fila[1];
+                vehiculosRent.addCliente(cliente);
+            }
+        }
+
+        public void mostrarClientes(VehiculosRent vehiculosRent)
+        {
+            foreach (Cliente cliente in vehiculosRent.ListaClientes)
+            {
+                Console.WriteLine(cliente.Nif + "\t" + cliente.Nombre);
+            }
+
         }
     }
 
