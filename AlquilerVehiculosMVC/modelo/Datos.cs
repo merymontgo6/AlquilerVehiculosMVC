@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -114,7 +115,39 @@ namespace AlquilerVehiculosMVC.modelo
 
             vehiculos.Add(camion);
         }
+
+        public void grabarCSV()
+        {
+            StreamWriter fitxer = new StreamWriter(@"c:\CSV\clientes.csv");
+            
+            string texto = "";
+
+            foreach (Cliente cliente in clientes)
+            {
+                texto = cliente.Nif + "," + cliente.Nombre;
+                fitxer.WriteLine(texto);
+            }
+
+            fitxer.Close();
+        }
+
+        public void cargarCSV()
+        {
+            clientes.Clear();
+            Cliente cliente;
+
+            string fichero = @"C:\csv\clientes.csv";
+            StreamReader archivo = new StreamReader(fichero);
+            string linea;
+            linea = archivo.ReadLine();
+            while ((linea = archivo.ReadLine()) != null)
+            {
+                string[] fila = linea.Split(',');
+                cliente = new Cliente();
+                cliente.Nif = fila[0];
+                cliente.Nombre = fila[1];
+                clientes.Add(cliente);
+            }
+        }
     }
-
-
 }

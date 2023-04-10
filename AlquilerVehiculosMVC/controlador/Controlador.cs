@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AlquilerVehiculosMVC.vista;
 using AlquilerVehiculosMVC.modelo;
 using System.Collections;
+using System.IO;
 
 namespace AlquilerVehiculosMVC.controlador
 {
@@ -48,6 +49,15 @@ namespace AlquilerVehiculosMVC.controlador
                         break;
                     case "5":
                         mostrarVehiculoByTipo();
+                        break;
+                    case "6":
+                        grabarCSVClientes();
+                        break;
+                    case "7":
+                        leerCSVClientes();
+                        break;
+                    case "8":
+                        cargarCSVClientes();
                         break;
                     case "0":
                         salir = true;
@@ -111,6 +121,25 @@ namespace AlquilerVehiculosMVC.controlador
             VehiculosView.mostrarVehiculos(listaVehiculos);
 
             //VehiculosView.mostrarVehiculos(datos.listaVehiculosByTipo(tipoVehiculo));
+        }
+
+        private void grabarCSVClientes()
+        {
+            ClienteController clienteController = new ClienteController(datos);
+            datos.grabarCSV();
+        }
+
+        private void leerCSVClientes()
+        {
+            ClienteController clienteController = new ClienteController(datos);
+            ClienteView clienteView = new ClienteView(clienteController);
+            clienteView.leerCSV();
+        }
+
+        private void cargarCSVClientes()
+        {
+            ClienteController clienteController = new ClienteController(datos);
+            datos.cargarCSV();
         }
     }
 }
