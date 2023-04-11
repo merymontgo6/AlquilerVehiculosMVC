@@ -51,13 +51,13 @@ namespace AlquilerVehiculosMVC.controlador
                         mostrarVehiculoByTipo();
                         break;
                     case "6":
-                        grabarCSVClientes();
+                        grabarCSVvehiculos();
                         break;
                     case "7":
-                        leerCSVClientes();
+                        leerCSVvehiculos();
                         break;
                     case "8":
-                        cargarCSVClientes();
+                        cargarCSVvehiculos();
                         break;
                     case "0":
                         salir = true;
@@ -123,20 +123,20 @@ namespace AlquilerVehiculosMVC.controlador
             //VehiculosView.mostrarVehiculos(datos.listaVehiculosByTipo(tipoVehiculo));
         }
 
-        private void grabarCSVClientes()
+        private void grabarCSVvehiculos()
         {
-            ClienteController clienteController = new ClienteController(datos);
+            VehiculoController vehiculoController = new VehiculoController(datos);
             datos.grabarCSV();
         }
 
-        private void leerCSVClientes()
+        private void leerCSVvehiculos()
         {
-            ClienteController clienteController = new ClienteController(datos);
-            ClienteView clienteView = new ClienteView(clienteController);
-            clienteView.leerCSV();
+            VehiculoController vehiculoController = new VehiculoController(datos);
+            VehiculosView vehiculosView = new VehiculosView(vehiculoController);
+            vehiculosView.leerCSV();
         }
 
-        private void cargarCSVClientes()
+        private void cargarCSVvehiculos()
         {
             ClienteController clienteController = new ClienteController(datos);
             datos.cargarCSV();

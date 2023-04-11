@@ -46,6 +46,7 @@
     <Compile Include="controlador\ClienteController.cs" />
     <Compile Include="controlador\Controlador.cs" />
     <Compile Include="controlador\Program.cs" />
+    <Compile Include="controlador\VehiculoController.cs" />
     <Compile Include="modelo\Camion.cs" />
     <Compile Include="modelo\Cliente.cs" />
     <Compile Include="modelo\Coche.cs" />

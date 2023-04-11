@@ -17,9 +17,9 @@ namespace AlquilerVehiculosMVC.vista
             Console.WriteLine("3. Mostrar vehiculos");
             Console.WriteLine("4. Mostrar clientes");
             Console.WriteLine("5. Mostrar vehiculos por tipo");
-            Console.WriteLine("6. Eliminar vehiculo");
-            Console.WriteLine("7. Alta contrato");
-            Console.WriteLine("8. Listar contratos");
+            Console.WriteLine("6. Grabar CSV vehiculos");
+            Console.WriteLine("7. Leer CSV vehiculos");
+            Console.WriteLine("8. Cargar CSV vehiculos");
             Console.WriteLine("0. Salir");
             opcion = pedirOpcionMenu();
             return opcion;
@@ -32,7 +32,7 @@ namespace AlquilerVehiculosMVC.vista
             {
                 Console.Write("Opcion: ");
                 opcion = Console.ReadLine();
-            } while (!"01234567".Contains(opcion));
+            } while (!"0123456789".Contains(opcion));
 
             return opcion;
 

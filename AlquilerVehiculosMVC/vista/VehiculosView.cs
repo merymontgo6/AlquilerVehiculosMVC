@@ -1,15 +1,24 @@
-﻿using AlquilerVehiculosMVC.modelo;
+﻿using AlquilerVehiculosMVC.controlador;
+using AlquilerVehiculosMVC.modelo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AlquilerVehiculosMVC.vista
 {
-    internal static class VehiculosView
+    internal  class VehiculosView
     {
+        VehiculoController vehiculoController;
+
+        public VehiculosView(VehiculoController vehiculoController)
+        {
+            this.vehiculoController = vehiculoController;
+        }
+
         public static int seleccionarTipoVehiculo()
         {
             int opcion;
@@ -71,6 +80,24 @@ namespace AlquilerVehiculosMVC.vista
             foreach (string vehiculo in listaVehiculos)
             {
                 Console.WriteLine(vehiculo);
+            }
+        }
+
+        public void leerCSV()
+        {
+            string vehiculosFichero = @"C:\csv\vehiculos.csv";
+            StreamReader archivo = new StreamReader(vehiculosFichero);
+            string linea;
+
+            while ((linea = archivo.ReadLine()) != null)
+            {
+                string[] fila = linea.Split(',');
+
+                for (int i = 0; i < fila.Length; i++)
+                {
+                    Console.Write(fila[i] + "\t");
+                }
+                Console.WriteLine();
             }
         }
     }

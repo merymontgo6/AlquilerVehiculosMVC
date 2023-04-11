@@ -33,8 +33,6 @@ namespace AlquilerVehiculosMVC.vista
             return clienteHash;
         }
 
-
-
         public static void mostrarClientes(List<string> listaClientes)
         {
             Console.WriteLine("Nif:\tNombre:");
@@ -45,22 +43,5 @@ namespace AlquilerVehiculosMVC.vista
             }
         }
 
-        public void leerCSV()
-        {
-            string fichero = @"C:\csv\clientes.csv";
-            StreamReader archivo = new StreamReader(fichero);
-            string linea;
-
-            while ((linea = archivo.ReadLine()) != null)
-            {
-                string[] fila = linea.Split(',');
-
-                for (int i = 0; i < fila.Length; i++)
-                {
-                    Console.Write(fila[i] + "\t");
-                }
-                Console.WriteLine();
-            }
-        }
     }
 }

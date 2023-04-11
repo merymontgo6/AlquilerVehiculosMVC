@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlquilerVehiculosMVC.modelo
 {
-    internal abstract class Vehiculo
+    internal  class Vehiculo
     {
         private string matricula;
         private string marca;

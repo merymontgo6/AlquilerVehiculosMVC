@@ -118,13 +118,17 @@ namespace AlquilerVehiculosMVC.modelo
 
         public void grabarCSV()
         {
-            StreamWriter fitxer = new StreamWriter(@"c:\CSV\clientes.csv");
+            StreamWriter fitxer = new StreamWriter(@"c:\CSV\vehiculos.csv");
             
             string texto = "";
 
-            foreach (Cliente cliente in clientes)
+            foreach (Vehiculo vehiculo in vehiculos)
             {
-                texto = cliente.Nif + "," + cliente.Nombre;
+                texto = vehiculo.Matricula + "," + vehiculo.Marca + "," + vehiculo.Model + "," + vehiculo.GetType().Name;
+                if (vehiculo is Coche)
+                {
+                    
+                }
                 fitxer.WriteLine(texto);
             }
 
@@ -133,20 +137,21 @@ namespace AlquilerVehiculosMVC.modelo
 
         public void cargarCSV()
         {
-            clientes.Clear();
-            Cliente cliente;
+            vehiculos.Clear();
+            Vehiculo vehiculo;
 
-            string fichero = @"C:\csv\clientes.csv";
+            string fichero = @"C:\csv\vehiculos.csv";
             StreamReader archivo = new StreamReader(fichero);
             string linea;
             linea = archivo.ReadLine();
             while ((linea = archivo.ReadLine()) != null)
             {
                 string[] fila = linea.Split(',');
-                cliente = new Cliente();
-                cliente.Nif = fila[0];
-                cliente.Nombre = fila[1];
-                clientes.Add(cliente);
+                vehiculo = new Vehiculo();
+                vehiculo.Matricula = fila[0];
+                vehiculo.Marca = fila[1];
+                vehiculo.Model = fila[2];
+                vehiculos.Add(vehiculo);
             }
         }
     }
